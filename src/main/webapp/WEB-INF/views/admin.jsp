@@ -1,3 +1,12 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<!-- USE THESE THIGNS TO SET GLOBALS -->
+<c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +14,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메뉴 관리</title>
-
-    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="../css/dyrmwyrm.css"/>
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="resources/css/dyrmwyrm.css"/>
 </head>
 
 <body>
     <script>
-        // active 클래스 추가용 함수 (형제 태그에서 active없애고 클릭한거 active 토글함)
-        // 주의 :: 부트스트랩 active pseudo class 아님!!
+ 		// active 클래스 추가용 함수 (형제 태그에서 active없애고 클릭한거 active 토글함)
+    	// 주의 :: 부트스트랩 active pseudo class 아님!!
         function cat_clicked(tag){
             let siblings = $(tag).siblings();
             for(i = 0 ; i < siblings.length ; i ++){
@@ -25,11 +33,11 @@
             $(tag).toggleClass("active");
         }
 
-        // 주문내역 불러오는 함수
+     	// 주문내역 불러오는 함수
         function load_this_and_rid_that(tag){
             if($(tag).hasClass("manage-menus")){
                 console.log("menu clicked!!!");
-                //not 임 주의
+                //not 임 주의
                 if(!$(".bdgroupA").hasClass("active")){
                     $(".bdgroupA").toggleClass("active");
                     $(".bdgroupB").toggleClass("active");
@@ -55,7 +63,7 @@
                         <div class="col-lg-6 manage-menus" onclick="cat_clicked(this);load_this_and_rid_that(this)">
                             <div class="row">
                                 <div class="col-lg-12 manage-menus-icon">
-                                    <img src="../img/menu-icon.png" width="70px" style="margin-bottom: 10px;" alt="menu">
+                                    <img src="resources/img/menu-icon.png" width="70px" style="margin-bottom: 10px;" alt="menu">
                                 </div>
                             </div>
                             <div class="row">
@@ -65,7 +73,7 @@
                         <div class="col-lg-6 manage-orders" onclick="cat_clicked(this);load_this_and_rid_that(this)">
                             <div class="row">
                                 <div class="col-lg-12 manage-orders-icon">
-                                    <img src="../img/orders-icon.png" width="70px" style="margin-bottom: 10px;" alt="orders">
+                                    <img src="resources/img/orders-icon.png" width="70px" style="margin-bottom: 10px;" alt="orders">
                                 </div>
                             </div>
                             <div class="row">
@@ -78,7 +86,7 @@
                         <div class="col-lg-12">
                             <ul class="cat-names-list">
                                 <li class="cat-names" onclick="cat_clicked(this)">
-                                    <span>커피류</span>
+                                    <span>커피류</span>
                                 </li>
                                 <li class="cat-names" onclick="cat_clicked(this)">
                                     <span>디저트류</span>
@@ -98,13 +106,13 @@
                     <div class="row">
                         <div class="col-lg-12 home">
                             <div class="home-icon">
-                                <img src="../img/home_brown.png" width="150px" alt="home">
+                                <img src="resources/img/home_brown.png" width="150px" alt="home">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 home">
-                            <span><h3>집 가잔꼐</h3></span>
+                            <span><h3>메인으로</h3></span>
                         </div>
                     </div>
                 </div>
@@ -118,14 +126,14 @@
                                 <div class="card-body menu-card">
                                     <div class="row">
                                         <div class="col-lg-3 photo-zone">
-                                            <img src="../img/blood.png" width="220px" alt="menu-pic">
+                                            <img src="resources/img/blood.png" width="220px" alt="menu-pic">
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="row">
                                                 <div class="col-lg-4 menu-title"><h3>뚝배기아메리카노</h3></div>
                                                 <div class="col-lg-3"></div> <!-- FOR SPACING -->
                                                 <div class="col-lg-3"></div> <!-- FOR SPACING -->
-                                                <div class="col-lg-2 menu-price"><h4>2,000원</h4></div>
+                                                <div class="col-lg-2 menu-price"><h4>2,000원</h4></div>
                                             </div>
                                             <div class="row menu-desc-row">
                                                 <div class="col-lg-12 menu-desc">메뉴설명</div>
@@ -135,7 +143,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 arrow-row">
-                                            <img src="../img/arrowdown.png" style="width:25px" alt="arrow">
+                                            <img src="resources/img/arrowdown.png" style="width:25px" alt="arrow">
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +156,7 @@
                                 <div class="card-body menu-card">
                                     <div class="row">
                                         <div class="col-lg-3 photo-zone">
-                                            <img src="../img/blood.png" width="220px" alt="menu-pic">
+                                            <img src="resources/img/blood.png" width="220px" alt="menu-pic">
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="row">
@@ -165,7 +173,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 arrow-row">
-                                            <img src="../img/arrowdown.png" style="width:25px" alt="arrow">
+                                            <img src="resources/img/arrowdown.png" style="width:25px" alt="arrow">
                                         </div>
                                     </div>
                                 </div>
@@ -197,23 +205,23 @@
                                             <div class="row">
                                                 <div class="col-lg-8 form-group" style="padding-right:0px">
                                                     <select class="form-control" style="border-top-right-radius:0px;border-bottom-right-radius:0px;" name="category" type="text">
-                                                        <option value="해당분류ID">국밥</option>
-                                                        <option value="해당분류ID">고기</option>
-                                                        <option value="해당분류ID">커피</option>
-                                                        <option value="해당분류ID">과일</option>
-                                                        <option value="해당분류ID">ㅇㅇ</option>
+                                                        <option value="í´ë¹ë¶ë¥ID">국밥</option>
+                                                        <option value="í´ë¹ë¶ë¥ID">고기</option>
+                                                        <option value="í´ë¹ë¶ë¥ID">커피</option>
+                                                        <option value="í´ë¹ë¶ë¥ID">과일</option>
+                                                        <option value="í´ë¹ë¶ë¥ID">ㅇㅇ</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-1 appendage">
                                                     <div>
-                                                        <img src="../img/arrowdown.png" style="width:15px" alt="arrow">
+                                                        <img src="resources/img/arrowdown.png" style="width:15px" alt="arrow">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-1" style="text-align: left; margin-top:5px;">
-                                                    <img src="../img/plus_button.png" width="15px" alt="plus">
+                                                    <img src="resources/img/plus_button.png" width="15px" alt="plus">
                                                 </div>
                                                 <div class="col-lg-1" style="text-align: left; margin-top:5px;">
-                                                    <img src="../img/minus_button.png" width="15px" alt="plus">
+                                                    <img src="resources/img/minus_button.png" width="15px" alt="plus">
                                                 </div>
                                             </div>
                                                 <div class="col-lg-1"></div>
@@ -230,7 +238,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-9 border-bottom border-dark form-group">
-                                                    <input name="name" placeholder="이름입력" class="form-control border-0" type="text">
+                                                    <input name="name" placeholder="ì´ë¦ìë ¥" class="form-control border-0" type="text">
                                                 </div>
                                                 <div class="col-lg-3"></div>
                                             </div>
@@ -280,7 +288,7 @@
                                             <div class="row">
                                                 <div class="col-lg-2"></div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input" name="options01">얼음
+                                                    <input type="checkbox" class="form-check-input" name="options01">얼음
                                                 </div>
                                                 <div class="col-lg-2 form-group">
                                                     <input type="checkbox" class="form-check-input" name="options02">샷
@@ -317,16 +325,16 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-6 menu-img" style="text-align: center;">
-                                                    <img src="../img/purple.png" style="width:200px;" alt="menuimg"s>
+                                                    <img src="resources/img/purple.png" style="width:200px;" alt="menuimg"s>
                                                 </div>
                                                 <div class="col-lg-6 form-group">
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <input type="checkbox" name="newmenu" class="form-check-input">신규메뉴
                                                             <br>
-                                                            <input type="checkbox" name="recom" class="form-check-input">싸짱님추천
+                                                            <input type="checkbox" name="recom" class="form-check-input">추천
                                                             <br>
-                                                            <input type="checkbox" name="dog" class="form-check-input">개쩌는거
+                                                            <input type="checkbox" name="dog" class="form-check-input">개쩌는
                                                         </div>
                                                     </div>
 
@@ -419,7 +427,7 @@
                     <div class="card border-dark menu-details">
                         <div class="row" style="margin-top:20px;font-size:1.7rem">
                             <div class="col-lg-12" style="background-color: #1c1c1b; color:#ffdc00">
-                                주문 정보
+                            	주문 정보
                             </div>
                         </div>
 
@@ -522,8 +530,8 @@
         </div>
     </div>
     
-    <script src="../js/bootstrap.js"></script>
-    <script src="../js/jquery.js"></script>
+    <script src="resources/js/bootstrap.js"></script>
+    <script src="resources/js/jquery.js"></script>
     
 </body>
 </html>
