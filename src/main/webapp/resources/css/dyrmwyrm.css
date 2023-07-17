@@ -113,17 +113,25 @@
         border-radius: 6px;
         text-align: left;
         background-color: #1c1c1b;
+        background-image:url("../../../img/button_border.png") ;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     .cat-names.active{
         color:#1c1c1b;
         background-color: #ffdc00;
-        border:2px dotted;
-        border-color:#1c1c1b;}
+        /*border:2px dotted;*/
+        /*border-color:#1c1c1b;*/
+        background-image:url("../../../img/button_border.png");
+        background-repeat: no-repeat;
+        background-size: cover;}
     .cat-names:hover{
         color:#1c1c1b;
         background-color: #ffdc00;
-        border:1px solid;
-        border-color:#1c1c1b;}
+        /*border:1px solid :#1c1c1b;*/
+        background-image:url("../../../img/button_border.png");
+        background-repeat: no-repeat;
+        background-size: cover;}
 
 /* GET RID OF THE BLUE UNDERLINE */
 a{
@@ -168,6 +176,15 @@ a{
     }
 .home{
     text-align: center;
+    position:fixed;
+    width:inherit;
+    top:87%;
+    left:8.5%;
+    transform:translate(-50%, -50%);
+    background-color:#ffffff1a;
+    border-radius:10px;
+    color:#1c1c1b;
+    z-index:9999;
 }
 .form-control{
     padding-left:0px;

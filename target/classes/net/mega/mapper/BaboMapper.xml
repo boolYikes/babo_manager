@@ -10,4 +10,16 @@
 		WHERE admin_id=#{admin_id} and admin_pw=#{admin_pw}
 	</select>
 	
+	<select id="getMenus" resultType="net.mega.entities.Menu">
+		SELECT * 
+		FROM t_menu
+	</select>
+	<select id="getCategories" resultType="net.mega.entities.Category">
+		SELECT *
+		FROM t_category
+	</select>
+	<select id="getOptions" resultType="net.mega.entities.Options">
+		SELECT * 
+		FROM t_option
+	</select>
 </mapper>

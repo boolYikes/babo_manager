@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible;Content-Type" content="IE=edge;image/png;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메뉴 관리</title>
     <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -31,6 +31,7 @@
                 }
             };
             $(tag).toggleClass("active");
+            console.log($(tag).text());
         }
 
      	// 주문내역 불러오는 함수
@@ -63,7 +64,7 @@
                         <div class="col-lg-6 manage-menus" onclick="cat_clicked(this);load_this_and_rid_that(this)">
                             <div class="row">
                                 <div class="col-lg-12 manage-menus-icon">
-                                    <img src="resources/img/menu-icon.png" width="70px" style="margin-bottom: 10px;" alt="menu">
+                                    <img src="resources/img/menu3.png" width="70px" style="margin-bottom: 10px;" alt="menu">
                                 </div>
                             </div>
                             <div class="row">
@@ -73,7 +74,7 @@
                         <div class="col-lg-6 manage-orders" onclick="cat_clicked(this);load_this_and_rid_that(this)">
                             <div class="row">
                                 <div class="col-lg-12 manage-orders-icon">
-                                    <img src="resources/img/orders-icon.png" width="70px" style="margin-bottom: 10px;" alt="orders">
+                                    <img src="resources/img/order3.png" width="70px" style="margin-bottom: 10px;" alt="orders">
                                 </div>
                             </div>
                             <div class="row">
@@ -85,15 +86,11 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <ul class="cat-names-list">
-                                <li class="cat-names" onclick="cat_clicked(this)">
-                                    <span>커피류</span>
-                                </li>
-                                <li class="cat-names" onclick="cat_clicked(this)">
-                                    <span>디저트류</span>
-                                </li>
-                                <li class="cat-names" onclick="cat_clicked(this)">
-                                    <span>밥류</span>
-                                </li>
+                            	<c:forEach items="${categories}" var="cat">
+	                                <li class="cat-names" onclick="cat_clicked(this)">
+	                                    <span>${cat.category_name}</span>
+	                                </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -103,83 +100,58 @@
                             <div style="height:400px"></div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12 home">
-                            <div class="home-icon">
-                                <img src="resources/img/home_brown.png" width="150px" alt="home">
+                    <div class="row home">
+                        <div class="col-lg-12">
+                            <div class="home-icon row">
+                            	<div class="col-lg-12">
+                                	<img src="resources/img/home2.png" width="100px" alt="home">
+                                </div>
                             </div>
+                            <div class="row">
+		                        <div class="col-lg-12">
+		                            <span><h3>메인으로</h3></span>
+		                        </div>
+                  			</div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 home">
-                            <span><h3>메인으로</h3></span>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
             <div class="col-lg-7 bigdaddy02 bdgroupA active">
-                <div class="card">
-
-                    <div class="row" id="rownum1">
-                        <div class="col-lg-12">
-                            <a href="#">
-                                <div class="card-body menu-card">
-                                    <div class="row">
-                                        <div class="col-lg-3 photo-zone">
-                                            <img src="resources/img/blood.png" width="220px" alt="menu-pic">
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="row">
-                                                <div class="col-lg-4 menu-title"><h3>뚝배기아메리카노</h3></div>
-                                                <div class="col-lg-3"></div> <!-- FOR SPACING -->
-                                                <div class="col-lg-3"></div> <!-- FOR SPACING -->
-                                                <div class="col-lg-2 menu-price"><h4>2,000원</h4></div>
-                                            </div>
-                                            <div class="row menu-desc-row">
-                                                <div class="col-lg-12 menu-desc">메뉴설명</div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 arrow-row">
-                                            <img src="resources/img/arrowdown.png" style="width:25px" alt="arrow">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row" id="rownum2">
-                        <div class="col-lg-12">
-                            <a href="#">
-                                <div class="card-body menu-card">
-                                    <div class="row">
-                                        <div class="col-lg-3 photo-zone">
-                                            <img src="resources/img/blood.png" width="220px" alt="menu-pic">
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="row">
-                                                <div class="col-lg-4 menu-title"><h3>뚝배기아메리카노</h3></div>
-                                                <div class="col-lg-3"></div> <!-- FOR SPACING -->
-                                                <div class="col-lg-3"></div> <!-- FOR SPACING -->
-                                                <div class="col-lg-2 menu-price"><h4>2,000원</h4></div>
-                                            </div>
-                                            <div class="row menu-desc-row">
-                                                <div class="col-lg-12 menu-desc">메뉴설명</div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 arrow-row">
-                                            <img src="resources/img/arrowdown.png" style="width:25px" alt="arrow">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                <div class="card" style="overflow:auto">
+                
+					<c:forEach items="${menus}" var="menu">
+	                    <div class="row" id="rownum1">
+	                        <div class="col-lg-12">
+	                            <a href="#">
+	                                <div class="card-body menu-card">
+	                                    <div class="row">
+	                                        <div class="col-lg-3 photo-zone">
+	                                            <img src="${menu.menu_img}" width="160px" alt="menu-pic">
+	                                        </div>
+	                                        <div class="col-lg-9">
+	                                            <div class="row">
+	                                                <div class="col-lg-4 menu-title"><h3>${menu.menu_name}</h3></div>
+	                                                <div class="col-lg-3"></div> <!-- FOR SPACING -->
+	                                                <div class="col-lg-3"></div> <!-- FOR SPACING -->
+	                                                <div class="col-lg-2 menu-price"><h4>${menu.menu_price}원</h4></div>
+	                                            </div>
+	                                            <div class="row menu-desc-row">
+	                                                <div class="col-lg-12 menu-desc">${menu.menu_desc}</div>
+	                                            </div>
+	                                            
+	                                        </div>
+	                                    </div>
+	                                    <div class="row">
+	                                        <div class="col-lg-12 arrow-row">
+	                                            <img src="resources/img/arrowdown.png" style="width:25px" alt="arrow">
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </a>
+	                        </div>
+	                    </div>
+                    </c:forEach>
                     
                 </div>
             </div>
@@ -238,7 +210,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-9 border-bottom border-dark form-group">
-                                                    <input name="name" placeholder="ì´ë¦ìë ¥" class="form-control border-0" type="text">
+                                                    <input name="name" placeholder="메뉴이름 입력" class="form-control border-0" type="text">
                                                 </div>
                                                 <div class="col-lg-3"></div>
                                             </div>
