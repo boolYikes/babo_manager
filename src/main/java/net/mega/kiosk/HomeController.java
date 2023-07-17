@@ -6,7 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.mega.entities.Category;
 import net.mega.entities.Manager;
+import net.mega.entities.Menu;
+import net.mega.entities.Options;
 import net.mega.mapper.BaboMapper;
 
 @Controller
@@ -28,8 +31,11 @@ public class HomeController {
 		
 		if(mapper.getManager(info) == null) {
 			return "redirect:/signin";//redirect to login
+		}else {
+			Menu = mapper.getMenus();
+			Category = mapper.getCategories();
+			Options = mapper.getOptions();
+			return "admin"; //log on
 		}
-		
-		return "admin"; //log on
 	}
 }
