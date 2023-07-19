@@ -1,5 +1,6 @@
 package net.mega.kiosk;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.mega.entities.Category;
 import net.mega.entities.Manager;
+import net.mega.entities.Menu;
 import net.mega.mapper.BaboMapper;
 
 @Controller
@@ -36,6 +39,7 @@ public class HomeController {
 			model.addAttribute("menus", mapper.getMenus());
 			model.addAttribute("categories", mapper.getCategories());
 			model.addAttribute("options", mapper.getOptions());
+			model.addAttribute("orders", mapper.getOrders());
 			return "admin"; //log on
 		}
 	}

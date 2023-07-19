@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- config (hikcon) -->
+	<bean class="com.zaxxer.hikari.HikariConfig" id="hikCon">
+		<property name="username" value="cgi_2_230701_4"/>
+		<property name="password" value="smhrd4"/>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql://project-db-cgi.smhrd.com:3307/cgi_2_230701_4"/>
+	</bean>
+	
+	<!-- getcon (datasource) -->
+	<bean class="com.zaxxer.hikari.HikariDataSource" id="hikDat">
+		<constructor-arg ref="hikCon"/>
+	</bean>
+	
+	<!-- seshFac -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="hikDat"/>	
+	</bean>
+	
+	<!-- which interface to use as injection? -->
+	<mybatis-spring:scan base-package="net.mega.mapper"/>
+		
+</beans>

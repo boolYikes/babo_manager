@@ -1,0 +1,214 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 300,400,500,600,700,800,900;
+    font-style: normal;
+}
+
+/* default scroll bar */
+::-webkit-scrollbar{
+    width:0.5em;
+}
+::-webkit-scrollbar-thumb{ /* don't seem to work */ 
+    color:black;
+    border-radius: 5px;
+}
+
+/* ORDERS DETAILS*/
+.fine-print>.row{
+    padding-left: 20px;
+    padding-right: 20px;}
+.pthead{
+    border-top:2px solid #1c1c1b;
+    border-bottom:2px solid #1c1c1b;
+}
+.pseudo-table{
+    padding-top:5px;
+    padding-bottom:5px;
+}
+.fine-print-left{
+    text-align:left;}
+.fine-print-right{
+    text-align:right;}
+.summary .col-lg-6{
+    padding-top:5px;
+    border-top:2px dotted #1c1c1b;}
+.summary-ends .col-lg-6{
+    padding-bottom:5px;
+    border-bottom:2px dotted #1c1c1b;}
+.trans .trans-sub{
+    padding-top: 5px;}
+.trans-ends .trans-sub{
+    padding-bottom:5px;
+    border-bottom:2px dotted #1c1c1b;
+}
+.buttons-area .col-lg-12{
+    padding:10px;
+    text-align: end;}
+    .buttons-area .col-lg-12 .btn{
+        height:75px;
+        width:150px;
+        background-color: #ffdc00;
+        font-weight: 900;
+        font-size:1.7rem;
+    }
+
+/* THE COLUMNS AND GRIDS!! */
+*{
+    font-family: 'SUITE-Regular', 'Franklin Gothic Medium', 'Arial Narrow';
+    transition:ease-in-out 0.3s; /* can live without this */
+}
+.hidden{
+    visibility: hidden;
+}
+.card{
+    background-color:#ffdc00;
+    margin:3px;
+    margin-bottom:10px;
+    height:calc(100vh*0.98);
+    box-shadow: 0px 2px 2px 2px rgba(0,0,0,0.2) !important;
+    padding:10px;}
+
+/* MANAGE MENUS / MANAGE ORDERS TAB */
+.bdgroupA, .bdgroupB{
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;}
+    .bdgroupA.active, .bdgroupB.active{
+        display: block;
+        opacity: 1;
+        transition: opacity 1s;
+    }
+
+/* THE MAJOR TABS */
+.bigdaddy01, .bigdaddy02, .bigdaddy04{
+    padding-right: 0px;}
+    .bigdaddy02 a{
+    color:#1c1c1b;}
+    .bigdaddy02 .card, .bigdaddy04 .card{
+        background-color: #ffffff;}
+        .bigdaddy04 .card .row:first-child{
+            border-top:1px solid #1c1c1b;
+            border-bottom:1px solid #1c1c1b;
+            color:#1c1c1b;
+        }
+.bigdaddy03 .card, .bigdaddy05 .card{
+    background-color: #ffffff;
+    color:#1c1c1b;
+    }
+
+/* DO NOT GIVE THESE MARGINS. GIVE PARENT PADDINGS INSTEAD */
+/* OTHERWISE THEY WILL OVERFLOW */
+
+/* THIS IS THE UL */
+.cat-names-list{
+    color:#fffff0;
+    list-style-type: none;}
+    .cat-names{
+        margin-top:10px;
+        margin-bottom:10px;
+        padding:10px;
+        padding-top:40px;
+        box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        text-align: left;
+        background-color: #1c1c1b;
+        background-image: linear-gradient(to top right, #1c1c1b, #61615b);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .cat-names.active{
+        color:#1c1c1b;
+        background-color: #ffdc00;
+        /*border:2px dotted;*/
+        /*border-color:#1c1c1b;*/
+        background-image:url("../../../img/button_border.png");
+        background-repeat: no-repeat;
+        background-size: cover;}
+    .cat-names:hover{
+        color:#1c1c1b;
+        background-color: #ffdc00;
+        /*border:1px solid :#1c1c1b;*/
+        background-image:url("../../../img/button_border.png");
+        background-repeat: no-repeat;
+        background-size: cover;}
+
+/* GET RID OF THE BLUE UNDERLINE */
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.menu-card{
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.1);
+    margin:10px;
+    color:#1c1c1b;
+    margin-bottom:5px;}
+    .menu-card:hover{
+        background-color: #ffdc00;
+    }
+.photo-zone{
+    display:inline;
+    padding-bottom: 25px;
+}
+.arrow-row{
+    text-align: end;
+}
+.menu-price{
+    color:rgb(255, 88, 79);
+}
+.management-row{
+    text-align: center;
+    color:#1c1c1b;}
+.manage-menus, .manage-orders{
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    margin-bottom: 50px;}
+    .manage-menus:hover, .manage-orders:hover{
+        background-color: #1c1c1b1c;
+        color:#1c1c1b;
+    }
+    .manage-menus.active, .manage-orders.active{
+        border:1px dotted #1c1c1b;
+        background-color: #0000001c;
+    }
+.home{
+    text-align: center;
+    position:fixed;
+    width:inherit;
+    top:87%;
+    left:8.5%;
+    transform:translate(-50%, -50%);
+    background-color:#ffffff1a;
+    border-radius:10px;
+    color:#1c1c1b;
+    z-index:9999;
+}
+.form-control{
+    padding-left:0px;
+}
+.menu-options .form-group{
+    padding-right:0px;padding-left:0px;
+}
+.last_buttons input{
+    border-width:50px;}
+    .last_buttons input.btn{
+        background-color:red;
+    }
+.appendage{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius:0px;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    background-color: #1c1c1b;
+    height:inherit;
+    text-align:center;
+    vertical-align: middle;
+    width:auto;
+    padding-left:0px;
+    padding-right:0px;
+    padding-top:10px;
+    font-size:1px;
+}

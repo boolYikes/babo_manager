@@ -4,6 +4,7 @@
 
 	<!-- QUERIES!! -->
 	
+	<!-- SELECT-ALLS -->
 	<select id="getManager" parameterType="net.mega.entities.Manager" resultType="net.mega.entities.Manager">
 		SELECT *
 		FROM t_admin
@@ -21,5 +22,37 @@
 	<select id="getOptions" resultType="net.mega.entities.Options">
 		SELECT * 
 		FROM t_option
+	</select>
+	<select id="getOrders" resultType="net.mega.entities.OrdersBoard">
+		select order_seq, sum(menu_cnt*menu_price) as sum
+		from t_order_detail
+		group by order_seq;
+	</select>
+	
+	<!-- SINGLE-OUTTERS -->
+	<select id="getOneCategory" parameterType="java.lang.String" resultType="net.mega.entities.Category">
+		SELECT *
+		FROM t_category
+		WHERE category_name = #{categoryName}
+	</select>
+	<select id="getCorrespMenus" parameterType="net.mega.entities.Category" resultType="net.mega.entities.Menu">
+		SELECT *
+		FROM t_menu
+		WHERE category_seq = #{category_seq}
+	</select>
+	<select id="getOneMenu" parameterType="java.lang.String" resultType="net.mega.entities.Menu">
+		SELECT *
+		FROM t_menu
+		WHERE menu_seq = #{menu_seq}	
+	</select>
+	<select id="getCorrespOtions" parameterType="java.lang.String" resultType="net.mega.entities.Options">
+		SELECT *
+		FROM t_option
+		WHERE menu_seq = #{menu_seq}
+	</select>
+	<select id="getCorrespOrders" parameterType="java.lang.Integer" resultType="net.mega.entities.Orders">
+		SELECT * 
+		FROM t_order_detail
+		where order_seq = #{order_seq}
 	</select>
 </mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.mega.mapper.BaboMapper">
+
+	<!-- QUERIES!! -->
+	
+	<!-- SELECT-ALLS -->
+	<select id="getManager" parameterType="net.mega.entities.Manager" resultType="net.mega.entities.Manager">
+		SELECT *
+		FROM t_admin
+		WHERE admin_id=#{admin_id} and admin_pw=#{admin_pw}
+	</select>
+	
+	<select id="getMenus" resultType="net.mega.entities.Menu">
+		SELECT * 
+		FROM t_menu
+	</select>
+	<select id="getCategories" resultType="net.mega.entities.Category">
+		SELECT *
+		FROM t_category
+	</select>
+	<select id="getOptions" resultType="net.mega.entities.Options">
+		SELECT * 
+		FROM t_option
+	</select>
+	
+	<!-- SINGLE-OUTTERS -->
+	<select id="getOneCategory" parameterType="java.lang.String" resultType="net.mega.entities.Category">
+		SELECT *
+		FROM t_category
+		WHERE category_name = #{categoryName}
+	</select>
+	<select id="getCorrespMenus" parameterType="net.mega.entities.Category" resultType="net.mega.entities.Menu">
+		SELECT *
+		FROM t_menu
+		WHERE category_seq = #{category_seq}
+	</select>
+	<select id="getOneMenu" parameterType="java.lang.String" resultType="net.mega.entites.Menu">
+		SELECT *
+		FROM t_menu
+		WHERE menu_seq = #{menu_seq}	
+	</select>
+</mapper>

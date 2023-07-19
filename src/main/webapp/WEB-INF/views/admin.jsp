@@ -21,8 +21,11 @@
 
 <body>
     <script>
+    	const CPATH = "${contextPath}"
+    	// 현재 기본 페이지는 카테고리 전부 보여줌 . 카테고리 클릭시 카테고리별로 바뀜
  		// active 클래스 추가용 함수 (형제 태그에서 active없애고 클릭한거 active 토글함)
     	// 주의 :: 부트스트랩 active pseudo class 아님!!
+    	let selected_category = "";
         function cat_clicked(tag){
             let siblings = $(tag).siblings();
             for(i = 0 ; i < siblings.length ; i ++){
@@ -31,8 +34,98 @@
                 }
             };
             $(tag).toggleClass("active");
-            console.log($(tag).text());
+            let catName = $(tag).text();
+            selected_category = catName;
+            $.ajax({
+            	url: CPATH + '/sortByCat',
+            	data: {categoryName : catName},
+            	success:function(corresp_menus){
+            		//console.log(corresp_menus);
+            		$(".bigdaddy02 .card").empty();
+            		for(i = 0 ; i < corresp_menus.length ; i ++){ // MUAHAHAHAHAHHAHAHAHAHAHA
+            			$(".bigdaddy02 .card").append("<div class='row' id='rownum"+ i +"'>"
+            											+"<div class='col-lg-12'>"
+    	                            						+"<div onclick='details("+ corresp_menus[i].menu_seq +")'>"
+    	                                						+"<div class='card-body menu-card'>"
+    	                                    						+"<div class='row'>"
+    	                                        						+"<div class='col-lg-3 photo-zone'>"
+    	                                            						+"<img src='"+ corresp_menus[i].menu_img +"' width='160px' alt='menu-pic'>"
+    	                                        						+"</div>"
+    	                                        						+"<div class='col-lg-9'>"
+    	                                            						+"<div class='row'>"
+	    	                                                					+"<div class='col-lg-4 menu-title'><h3>"+ corresp_menus[i].menu_name +"</h3></div>"
+	    	                                                					+"<div class='col-lg-3'></div>"
+	    	                                                					+"<div class='col-lg-3'></div>"
+	    	                                                					+"<div class='col-lg-2 menu-price'><h4>"+ corresp_menus[i].menu_price +"원</h4></div>"
+    	                                            						+"</div>"
+    	                                            						+"<div class='row menu-desc-row'>"
+    	                                                						+"<div class='col-lg-12 menu-desc'>"+ corresp_menus[i].menu_desc +"</div>"
+    	                                            						+"</div>"
+    	                                        						+"</div>"
+    	                                    						+"</div>"
+    	                                    						+"<div class='row'>"
+    	                                        						+"<div class='col-lg-12 arrow-row'>"
+    	                                            						+"<img src='resources/img/arrowdown.png' style='width:25px' alt='arrow'>"
+    	                                        						+"</div>"
+    	                                    						+"</div>"
+    	                                						+"</div>"
+    	                            						+"</div>"
+    	                        						+"</div>"
+    	                    						+"</div>"); // APPENDAGE ENDS
+            		} // FOR ENDS
+            	}, // SUCCESS ENDS
+            	error: function(xhr, status, error){
+            		console.log(xhr);
+            	}
+            });
         }
+		
+        // 선택한 메뉴 가져오는 펑션
+    	let selected_menu;
+    	function details(menu_id){
+    		$.ajax({
+    			url: CPATH + "/getOneMenu",
+    			data:{menu_seq:menu_id},
+    			success:function(menuInfo){
+    				//console.log(menuInfo);
+    				selected_menu = menuInfo;
+    				$(".category select").val(menuInfo.category_seq);
+    				$(".menu-name input").val(menuInfo.menu_name);
+    				$(".price input").val(menuInfo.menu_price);
+    				//옵션 불러오기
+    				$.ajax({
+		    			url:CPATH + '/getCorrespOtions',
+		    			data:{menu_seq:menuInfo.menu_seq},
+		    			success:function(options){
+		    				//console.log(options);
+		    				$(".menu-options input").prop("checked", false);
+		    				if(options.op_cup !== null || options.op_cup !== undefined){
+								$(".menu-options .opt_cont").prop("checked", true);		    				
+		    				}
+		    				if(options.op_shot !== null || options.op_shot !== undefined){
+		    					$(".menu-options .opt_shot").prop("checked", true);
+		    				}
+		    				if(options.op_size_s !== null || options.op_size_s !== undefined){
+		    					$(".menu-options .opt_size").prop("checked", true);
+		    				}
+		    				if(options.op_ice !== null || options.op_ice !== undefined){
+		    					$(".menu-options .opt_ice").prop("checked", true);
+		    				}
+		    			},
+		    			error:function(xhr, error, status){
+		    				console.log(status);
+		    			}
+    				});
+    				
+    				$(".menudesc textarea").val(menuInfo.menu_desc);
+    				$(".image_and_tags img").attr("src", menuInfo.menu_img);
+    			},
+    			error:function(xhr, status, error){
+    				console.log(error);
+    			}
+    		});
+    		
+    	}
 
      	// 주문내역 불러오는 함수
         function load_this_and_rid_that(tag){
@@ -53,6 +146,50 @@
                 }
             }
         }
+     	
+     	function getOrderDetail(order_seq){
+     		console.log(order_seq);
+     		$.ajax({
+     			url:CPATH + '/getCorrespOrders',
+     			data:{order_seq:order_seq},
+     			success:function(orderDetails){
+     				console.log(orderDetails);
+     				let total = 0;
+     				for(i = 0 ; i < orderDetails.length ; i ++){
+     					total += orderDetails[i].menu_price;
+     					
+     					$(".menu_name").empty();
+     					$(".menu_options").empty();
+     					$(".menu_name").append("<div class='col-lg-7'>"
+                        						  +"<span>"+ orderDetails[i].menu_name +"</span>"
+                        					  +"</div>"
+                        					  +"<div class='col-lg-2'>"
+                            				      +"<span>"+ orderDetails[i].menu_cnt +"</span>"
+                        					  +"</div>"
+                        					  +"<div class='col-lg-3'>"
+                            				  	  +"<span>"+ orderDetails[i].menu_price +"</span>"
+                        					  +"</div>");
+     					$(".menu_options").append("<div class='col-lg-7'>"
+     												+">><span>"+ orderDetails[i].od_size +"</span>"
+                        						+"</div>"
+                        						+"<div class='col-lg-2'>"
+                            						+"<span>"+orderDetails[i].od_ice+"</span>"
+                        						+"</div>"
+                        						+"<div class='col-lg-3'>"
+                            						+"<span>"+ orderDetails[i].od_shot +"</span>"
+                        						+"</div>");
+     				}
+     				$("#sum_total").text(total);
+     				$("#retail_val").text(total-total*0.1);
+     				$("#the_vat").text(total*0.1);
+     				$("#total-total").text(total);
+     			},
+     			error:function(xhr, status, error){
+					console.log(error);     				
+     			}
+     		});
+     	}
+     	
     </script>
 
     <div class="content">
@@ -123,7 +260,7 @@
 					<c:forEach items="${menus}" var="menu">
 	                    <div class="row" id="rownum1">
 	                        <div class="col-lg-12">
-	                            <a href="#">
+	                            <div onclick="details('${menu.menu_seq}')">
 	                                <div class="card-body menu-card">
 	                                    <div class="row">
 	                                        <div class="col-lg-3 photo-zone">
@@ -148,7 +285,7 @@
 	                                        </div>
 	                                    </div>
 	                                </div>
-	                            </a>
+	                            </div>
 	                        </div>
 	                    </div>
                     </c:forEach>
@@ -177,11 +314,9 @@
                                             <div class="row">
                                                 <div class="col-lg-8 form-group" style="padding-right:0px">
                                                     <select class="form-control" style="border-top-right-radius:0px;border-bottom-right-radius:0px;" name="category" type="text">
-                                                        <option value="í´ë¹ë¶ë¥ID">국밥</option>
-                                                        <option value="í´ë¹ë¶ë¥ID">고기</option>
-                                                        <option value="í´ë¹ë¶ë¥ID">커피</option>
-                                                        <option value="í´ë¹ë¶ë¥ID">과일</option>
-                                                        <option value="í´ë¹ë¶ë¥ID">ㅇㅇ</option>
+                                                        <c:forEach items="${categories}" var="cat">
+	                                                        <option value="${cat.category_seq}">${cat.category_name}</option>
+                                                        </c:forEach>
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-1 appendage">
@@ -260,16 +395,16 @@
                                             <div class="row">
                                                 <div class="col-lg-2"></div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input" name="options01">얼음
+                                                    <input type="checkbox" class="form-check-input opt_size" name="opt_size">크기
                                                 </div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input" name="options02">샷
+                                                    <input type="checkbox" class="form-check-input opt_ice" name="opt_ice">얼음
                                                 </div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input" name="options03">당도
+                                                    <input type="checkbox" class="form-check-input opt_shot" name="opt_shot">샷
                                                 </div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input" name="options04">등등
+                                                    <input type="checkbox" class="form-check-input opt_cont" name="opt_cont">용기
                                                 </div>
                                                 <div class="col-lg-2"></div>
                                             </div>
@@ -339,10 +474,10 @@
                         <div class="row last_buttons" style="margin-top:90px;text-align: center;">
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
-                                <input type="reset" class="btn" value="다시입력" style="background-color: #1c1c1b;color:#ffdc00">
+                                <input type="reset" class="btn resetBtn" value="다시입력" style="background-color: #1c1c1b;color:#ffdc00">
                             </div>
                             <div class="col-lg-5">
-                                <input type="button" class="btn" value="메뉴추가" style="background-color:#ffdc00; color:#1c1c1b">
+                                <input type="button" class="btn subBtn" value="추가/수정" style="background-color:#ffdc00; color:#1c1c1b">
                             </div>
                             <div class="col-lg-1"></div>
                         </div>
@@ -370,25 +505,14 @@
                                     <td>메뉴가격</td>
                                     <td>주문일시</td>
                                </tr>
-                               <tr>
-                                    <td>12345</td>
-                                    <td>010-9470-3337</td>
-                                    <td>2,000원</td>
-                                    <td>2023/23/23</td>
-                               </tr>
-                               <tr>
-                                    <td>123456</td>
-                                    <td>010-0101-1010</td>
-                                    <td>85,000원</td>
-                                    <td>1212/12/12</td>
-                               </tr>
-                               
-                               <tr>
-                                    <td>12344</td>
-                                    <td>010-2121-2323</td>
-                                    <td>23,233</td>
-                                    <td>2023/20/23</td>
-                               </tr>
+                               <c:forEach items="${orders}" var="order">
+	                               <tr class="orders_list" onclick="getOrderDetail('${order.order_seq}')">
+	                                    <td>${order.order_seq}</td>
+	                                    <td>011-123-4567</td>
+	                                    <td>${order.sum}원</td>
+	                                    <td>2023/23/23</td>
+	                               </tr>
+                               </c:forEach>
                             </table>
                         </div>
                     </div>
