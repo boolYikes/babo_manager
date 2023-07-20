@@ -614,7 +614,7 @@
                                     </div>
                                     <div class="row buttons-area">
                                         <div class="col-lg-12">
-                                            <input type="button" class="btn" value="반품처리">
+                                            <input type="button" onclick="location.href='${contextPath}/errandBoy'" class="btn" value="반품처리">
                                         </div>
                                     </div>
                                 </div>
