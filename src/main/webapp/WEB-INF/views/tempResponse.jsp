@@ -32,26 +32,45 @@
 		color:brown;
 		border: 2px #1c1c1b solid;
 	}
+	#baboo{
+		background-image:url("https://developers.kakao.com/tool/resource/static/img/button/pay/payment_icon_yellow_large.png");
+		background-repeat:no-repeat;
+		background-size: contain;
+		
+	}
 </style>
 <body>
-	
-	<button id="cocoaBtn">ㅋ코코아페이ㅅㅂ어</button>
-	
+	<div id="baboo">
+		<button id="cocoaBtn">ㅋ코코아페이ㅅㅂ어</button>
+	</div>
+	<div>
+		<button id="flaskTest">연령예측테스트</button>
+	</div>
+	<div>
+		<h1>당신의 나이는 <span id="age"></span>대</h1>
+	</div>
 	<script>
 	$(document).ready(function(){
+		$("#flaskTest").click(function(){
+			$.ajax({
+				url:'http://127.0.0.1:5000/look',
+				success:function(rsps){
+					$("#age").text(rsps);
+					console.log(rsps);
+				},
+				error:function(xhr, error){
+					console.error(xhr);
+					console.error(error);
+				}
+			});
+		});
 		$("#cocoaBtn").click(function(){
 			
 			// CUSTOM AUTHENTICATION LOGIC GOES HERE
 			console.log("clicked");
 			$.ajax({
-				type:'get',
 				url:'${contextPath}/pay',
-				data:{ // the info i get from the view initially. the rest is handled from the controller
-					item_name:"머가리카노",
-					quantity:"1",
-					total_amount: "1000000",
-					tax_free_amount: "990000",
-				},
+				dataType:'json',
 				success:function(rsps){
 					console.log("yes");
 					location.href=rsps.next_redirect_pc_url;

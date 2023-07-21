@@ -5,6 +5,12 @@
     font-style: normal;
 }
 
+body{
+	background-image:linear-gradient(to top right, #fffff0, #ffffff);
+	background-repeat: no-repeat;
+    background-size: contain;
+}
+
 /* default scroll bar */
 ::-webkit-scrollbar{
     width:0.5em;
@@ -86,7 +92,7 @@
     .bigdaddy02 a{
     color:#1c1c1b;}
     .bigdaddy02 .card, .bigdaddy04 .card{
-        background-color: #ffffff;}
+        background-color: #ffffff1c;}
         .bigdaddy04 .card .row:first-child{
             border-top:1px solid #1c1c1b;
             border-bottom:1px solid #1c1c1b;
@@ -192,11 +198,18 @@ a{
 .menu-options .form-group{
     padding-right:0px;padding-left:0px;
 }
-.last_buttons input{
-    border-width:50px;}
-    .last_buttons input.btn{
-        background-color:red;
-    }
+.last_buttons input.btn{
+    font-size:1.7rem;
+}
+.last_buttons .resetBtn:hover{
+	background-color:#ffdc00 !important;
+	border:3px dotted #1c1c1b !important;
+	color:#1c1c1b !important;}
+.last_buttons .subBtn:hover{
+	background-color:#1c1c1b !important;
+	border:3px dotted #ffdc00 !important;
+	color:#ffdc00 !important;
+}
 .appendage{
     border-top-left-radius: 0px;
     border-bottom-left-radius:0px;
