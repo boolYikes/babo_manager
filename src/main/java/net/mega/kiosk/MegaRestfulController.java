@@ -67,7 +67,6 @@ public class MegaRestfulController {
 		
 		return orders;
 	}
-	 
 	// FOR COCOA PAY TESTING
 	@GetMapping("/pay")
 	@ResponseBody
@@ -83,10 +82,10 @@ public class MegaRestfulController {
 					+ "&partner_order_id=PARTNER_ORDER_ID"
 					+ "&partner_user_id=PARTNER_USER_ID"
 					+ "&item_name=머가리카노"
-					+ "&quantity=9999"
-					+ "&total_amount=9999999"
-					+ "&tax_free_amount=99999"
-					+ "&approval_url=http://www.localhost:8083/kiosk/errandBoy"
+					+ "&quantity=99999"
+					+ "&total_amount=9999"
+					+ "&tax_free_amount=999"
+					+ "&approval_url=http://www.localhost:8083/kiosk"
 					+ "&fail_url=http://www.localhost:8083/kiosk/errandBoy"
 					+ "&cancel_url=http://www.localhost:8083/kiosk/errandBoy";
 			OutputStream stream = conn.getOutputStream();
@@ -112,4 +111,50 @@ public class MegaRestfulController {
 		}
 		return "";
 	}
+	// FOR COCOA APPROVAL TESTING
+		@GetMapping("/approve")
+		@ResponseBody
+		public String cocoaApprove() {
+			try {
+				URL endpoint = new URL("https://kapi.kakao.com/v1/payment/ready");
+				HttpURLConnection conn = (HttpURLConnection) endpoint.openConnection();
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Authorization", "KakaoAK 823b2e11c0729e1d043d79082dda9dbb");
+				conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				conn.setDoOutput(true);
+				String payload = "cid=TC0ONETIME"
+						+ "&partner_order_id=PARTNER_ORDER_ID"
+						+ "&partner_user_id=PARTNER_USER_ID"
+						+ "&item_name=머가리카노"
+						+ "&quantity=9999"
+						+ "&total_amount=9999999"
+						+ "&tax_free_amount=99999"
+						+ "&approval_url=http://www.localhost:8083/kiosk/errandBoy"
+						+ "&fail_url=http://www.localhost:8083/kiosk/errandBoy"
+						+ "&cancel_url=http://www.localhost:8083/kiosk/errandBoy";
+				OutputStream stream = conn.getOutputStream();
+				DataOutputStream pipe = new DataOutputStream(stream);
+				pipe.writeBytes(payload);
+				pipe.close();
+				
+				int result = conn.getResponseCode();
+				InputStream receive;
+				
+				if(result == 200) {
+					receive = conn.getInputStream();
+				}else {
+					receive = conn.getErrorStream();
+				}
+				
+				InputStreamReader reader = new InputStreamReader(receive);
+				BufferedReader byteReader = new BufferedReader(reader); // byte reader
+				
+				return byteReader.readLine();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return "";
+		}
 }
+
+
