@@ -92,6 +92,7 @@
     				$(".category select").val(menuInfo.category_seq);
     				$(".menu-name input").val(menuInfo.menu_name);
     				$(".price input").val(menuInfo.menu_price);
+    				$("#img_address").val(menuInfo.menu_img);
     				//옵션 불러오기
     				$.ajax({
 		    			url:CPATH + '/getCorrespOtions',
@@ -125,6 +126,17 @@
     			}
     		});
     		
+    	}
+    	
+    	// CRUD OPS
+    	function crud(tag, event){
+    		let formToGo = $("#crud_form");
+    		console.log(formToGo);
+    		let url = $(tag).hasClass("delBtn") > $(tag).hasClass("subBtn") ? "/delete":"/addOrSet";
+    		event.preventDefault();
+    		console.log(url+"clicked");
+    		formToGo.attr("action", CPATH + url);
+    		formToGo.submit();
     	}
 
      	// 주문내역 불러오는 함수
@@ -302,7 +314,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action=""> <!-- MENU INFO -->
+                            <form id="crud_form"> <!-- MENU INFO -->
                                 <div class="div div-borderless input-div">
                                     <div> <!-- CATEGORY SELECTION -->
                                         <div class="category" colspan="3" style="margin-bottom:10px;">
@@ -313,7 +325,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-8 form-group" style="padding-right:0px">
-                                                    <select class="form-control" style="border-top-right-radius:0px;border-bottom-right-radius:0px;" name="category" type="text">
+                                                    <select class="form-control" style="border-top-right-radius:0px;border-bottom-right-radius:0px;" name="category_seq" type="text">
                                                         <c:forEach items="${categories}" var="cat">
 	                                                        <option value="${cat.category_seq}">${cat.category_name}</option>
                                                         </c:forEach>
@@ -345,7 +357,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-9 border-bottom border-dark form-group">
-                                                    <input name="name" placeholder="메뉴이름 입력" class="form-control border-0" type="text">
+                                                    <input name="menu_name" placeholder="메뉴이름 입력" class="form-control border-0" type="text">
                                                 </div>
                                                 <div class="col-lg-3"></div>
                                             </div>
@@ -359,25 +371,25 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-9 form-group border-bottom border-dark">
-                                                    <input class="form-control border-0" name="price" type="text" placeholder="가격입력">
+                                                    <input class="form-control border-0" name="menu_price" type="text" placeholder="가격입력">
                                                 </div>
                                                 <div class="col-lg-3"><b>원</b></div>
                                             </div>
                                         </div>
                                     </div> <!-- MENU PRICE INPUT ENDS-->
 
-                                    <div> <!-- MENU DISCOUNT INPUT -->
+                                    <div> <!-- MENU DISCOUNT INPUT...NOT SUBMITTED TO FORM YET -->
                                         <div class="discount" style="margin-bottom:20px;">
                                             <div class="row">
                                                 <span style="font-size:0.7rem;"><b>할인</b></span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-5 form-group border-bottom border-dark">
-                                                    <input class="form-control border-0" name="discount" type="text" placeholder="할인입력">
+                                                    <input class="form-control border-0" type="text" placeholder="할인입력">
                                                 </div>
                                                 <div class="col-lg-2"><b>원</b></div>
                                                 <div class="col-lg-1 vat form-group">
-                                                    <input type="checkbox" class="form-check-input" name="vat">
+                                                    <input type="checkbox" class="form-check-input">
                                                 </div>
                                                 <div class="col-lg-3"><b>VAT포함</b></div>
                                                 <div class="col-lg-1"></div>
@@ -395,16 +407,16 @@
                                             <div class="row">
                                                 <div class="col-lg-2"></div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input opt_size" name="opt_size">크기
+                                                    <input type="checkbox" class="form-check-input opt_size" >크기
                                                 </div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input opt_ice" name="opt_ice">얼음
+                                                    <input type="checkbox" class="form-check-input opt_ice" >얼음
                                                 </div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input opt_shot" name="opt_shot">샷
+                                                    <input type="checkbox" class="form-check-input opt_shot" >샷
                                                 </div>
                                                 <div class="col-lg-2 form-group">
-                                                    <input type="checkbox" class="form-check-input opt_cont" name="opt_cont">용기
+                                                    <input type="checkbox" class="form-check-input opt_cont" >용기
                                                 </div>
                                                 <div class="col-lg-2"></div>
                                             </div>
@@ -418,7 +430,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-9 form-group border-bottom border-dark">
-                                                    <textarea class="form-control border-0" name="desc" placeholder="뜨끈하게 한사발" rows="1"></textarea>
+                                                    <textarea class="form-control border-0" name="menu_desc" placeholder="뜨끈하게 한사발" rows="1"></textarea>
                                                 </div>
                                                 <div class="col-lg-3"></div>
                                             </div>
@@ -432,28 +444,36 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-6 menu-img" style="text-align: center;">
-                                                    <img src="resources/img/purple.png" style="width:200px;" alt="menuimg"s>
+                                                    <img src="resources/img/purple.png" style="width:200px;" alt="menuimg">
                                                 </div>
                                                 <div class="col-lg-6 form-group">
                                                     <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <input type="checkbox" name="newmenu" class="form-check-input">신규메뉴
+                                                        <div class="col-lg-12"> <!-- TAGS ARE NOT IMPLEMENTED -->
+                                                            <input type="checkbox" class="form-check-input">신규
                                                             <br>
-                                                            <input type="checkbox" name="recom" class="form-check-input">추천
+                                                            <input type="checkbox" class="form-check-input">추천
                                                             <br>
-                                                            <input type="checkbox" name="dog" class="form-check-input">개쩌는
+                                                            <input type="checkbox" class="form-check-input">핫템
                                                         </div>
                                                     </div>
-
+													<!-- 
                                                     <div class="row" style="margin-top:10px">
                                                         <div class="col-lg-12">
-                                                            <label for="more_tag">추가 태그</label>
-                                                            <select id="more_tag" name="moretag" class="form-control" value="추가태그">추가태그
-                                                                <option value="123">핫템</option>
-                                                                <option value="324">엠디픽</option>
-                                                                <option value="345">잇템</option>
-                                                                <option value="345">힝</option>
+                                                            <label for="more_tag">추가태그</label>
+                                                            <select id="more_tag" class="form-control">추가태그
+                                                                <option value="10">10대</option>
+                                                                <option value="20">20대</option>
+                                                                <option value="30">30대</option>
+                                                                <option value="40">40대</option>
+                                                                <option value="50">50대이상</option>
                                                             </select>
+                                                        </div>
+                                                    </div>
+                                                    -->
+                                                    <div class="row" style="margin-top:10px">
+                                                        <div class="col-lg-12">
+                                                            <label for="img_address">사진링크</label>
+                                                            <input id="img_address" class="form-control" name="menu_img" type="text" placeholder="이미지 주소 입력">
                                                         </div>
                                                     </div>
 
@@ -472,14 +492,15 @@
                             </form>
                         </div>
                         <div class="row last_buttons" style="margin-top:90px;text-align: center;">
-                            <div class="col-lg-1"></div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-4">
+                            	<input type="button" class="btn delBtn" value="메뉴삭제" onclick="crud(this, event)" style="background-color:#fffff0;color:#1c1c1b">
+                            </div>
+                            <div class="col-lg-4">
                                 <input type="reset" class="btn resetBtn" value="다시입력" style="background-color: #1c1c1b;color:#ffdc00">
                             </div>
-                            <div class="col-lg-5">
-                                <input type="button" class="btn subBtn" value="추가/수정" style="background-color:#ffdc00; color:#1c1c1b">
+                            <div class="col-lg-4">
+                                <input type="button" class="btn subBtn" value="추가/수정" onclick="crud(this, event)" style="background-color:#ffdc00; color:#1c1c1b">
                             </div>
-                            <div class="col-lg-1"></div>
                         </div>
                     </div>
                 </div>

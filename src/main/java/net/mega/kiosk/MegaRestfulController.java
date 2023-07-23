@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.mega.entities.Category;
 import net.mega.entities.Menu;
+import net.mega.entities.MenuQuery;
 import net.mega.entities.Options;
 import net.mega.entities.Orders;
 import net.mega.mapper.BaboMapper;
@@ -54,7 +56,7 @@ public class MegaRestfulController {
 	}
 	
 	@RequestMapping("/getCorrespOtions")
-	public Options getCorrespOtions(String menu_seq) {
+	public Options getCorrespOtions(long menu_seq) {
 		
 		Options options = mapper.getCorrespOtions(menu_seq);
 		
@@ -67,6 +69,7 @@ public class MegaRestfulController {
 		
 		return orders;
 	}
+	
 	// FOR COCOA PAY TESTING
 	@GetMapping("/pay")
 	@ResponseBody

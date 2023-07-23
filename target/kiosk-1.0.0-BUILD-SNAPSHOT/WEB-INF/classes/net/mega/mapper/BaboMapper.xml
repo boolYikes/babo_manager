@@ -40,10 +40,18 @@
 		FROM t_menu
 		WHERE category_seq = #{category_seq}
 	</select>
-	<select id="getOneMenu" parameterType="java.lang.String" resultType="net.mega.entities.Menu">
+	<sql id="longOrString">
+		<if test="menu_name == null">
+			WHERE menu_seq = #{menu_seq}
+		</if>
+		<if test="menu_seq == null">
+			WHERE menu_name = #{menu_name}
+		</if>
+	</sql>
+	<select id="getOneMenu" resultType="net.mega.entities.Menu">
 		SELECT *
 		FROM t_menu
-		WHERE menu_seq = #{menu_seq}	
+		<include refid="longOrString"/>	
 	</select>
 	<select id="getCorrespOtions" parameterType="java.lang.String" resultType="net.mega.entities.Options">
 		SELECT *
@@ -55,4 +63,23 @@
 		FROM t_order_detail
 		where order_seq = #{order_seq}
 	</select>
+	
+	<!-- DMLs -->
+	<delete id="delCorrespMenu" parameterType="net.mega.entities.Menu">
+		DELETE
+		FROM t_menu
+		WHERE menu_name = #{menu_name}
+	</delete>
+	<update id="updateMenu" parameterType="net.mega.entities.Menu">
+		UPDATE t_menu
+		SET menu_name=#{menu_name}, menu_price=#{menu_price}, menu_desc=#{menu_desc}, menu_img=#{menu_img}, category_seq=#{category_seq}
+		WHERE menu_seq=#{targetID}
+	</update>
+	<insert id="insertMenu" parameterType="net.mega.entities.Menu">
+		INSERT
+		INTO t_menu
+		(menu_name, menu_price, menu_desc, menu_img, category_seq)
+		VALUES (#{menu_name}, #{menu_price}, #{menu_desc}, #{menu_img}, #{category_seq})
+	</insert>
+	
 </mapper>

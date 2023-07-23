@@ -15,10 +15,6 @@ body{
 ::-webkit-scrollbar{
     width:0.5em;
 }
-::-webkit-scrollbar-thumb{ /* don't seem to work */ 
-    color:black;
-    border-radius: 5px;
-}
 
 /* ORDERS DETAILS*/
 .fine-print>.row{
@@ -199,8 +195,10 @@ a{
     padding-right:0px;padding-left:0px;
 }
 .last_buttons input.btn{
-    font-size:1.7rem;
-}
+    font-size:1.7rem;}
+    .last_buttons .delBtn{
+    	border:3px solid #1c1c1b;
+    }
 .last_buttons .resetBtn:hover{
 	background-color:#ffdc00 !important;
 	border:3px dotted #1c1c1b !important;
@@ -209,6 +207,11 @@ a{
 	background-color:#1c1c1b !important;
 	border:3px dotted #ffdc00 !important;
 	color:#ffdc00 !important;
+}
+.last_buttons .delBtn:hover{
+	background-color: salmon !important;
+	border:3px dotted #1c1c1b !important;
+	color:#1c1c1b !important;
 }
 .appendage{
     border-top-left-radius: 0px;

@@ -71,8 +71,9 @@
 			$.ajax({
 				url:'${contextPath}/pay',
 				dataType:'json',
+				data:{가격 이름 : asda}
 				success:function(rsps){
-					console.log("yes");
+					// NORMAL CARDS METHOD WILL REQUIRE APPROVAL URL
 					location.href=rsps.next_redirect_pc_url;
 				},
 				error:function(xhr, status, error){
