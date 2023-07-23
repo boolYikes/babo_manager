@@ -27,6 +27,7 @@ import net.mega.entities.Menu;
 import net.mega.entities.MenuQuery;
 import net.mega.entities.Options;
 import net.mega.entities.Orders;
+import net.mega.entities.Preference;
 import net.mega.mapper.BaboMapper;
 
 @RestController
@@ -68,6 +69,13 @@ public class MegaRestfulController {
 		ArrayList<Orders> orders = mapper.getCorrespOrders(order_seq);
 		
 		return orders;
+	}
+	@RequestMapping("/getPref")
+	public ArrayList<Preference> getPreference(String menu_seq) {
+		Menu tempMenu = mapper.getOneMenu(menu_seq);
+		ArrayList<Preference> prefs = mapper.getPrefsByMenu(tempMenu);
+		
+		return prefs;
 	}
 	
 	// FOR COCOA PAY TESTING

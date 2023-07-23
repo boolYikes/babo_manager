@@ -28,6 +28,16 @@
 		from t_order_detail
 		group by order_seq;
 	</select>
+	<select id="getPrefsByMenu" parameterType="net.mega.entities.Menu" resultType="net.mega.entities.Preference">
+		SELECT temp.menu_name AS menu_name, temp.order_age AS order_age, count(temp.order_age) AS count
+		FROM
+			(SELECT A.menu_name AS menu_name, B.order_age AS order_age
+			FROM t_order_detail A, t_order B
+			WHERE A.order_seq = B.ORDER_SEQ) temp
+		WHERE temp.menu_name = #{menu_name}
+		GROUP BY temp.order_age
+		ORDER BY count(temp.order_age) desc
+	</select>
 	
 	<!-- SINGLE-OUTTERS -->
 	<select id="getOneCategory" parameterType="java.lang.String" resultType="net.mega.entities.Category">
@@ -40,7 +50,7 @@
 		FROM t_menu
 		WHERE category_seq = #{category_seq}
 	</select>
-	<select id="getOneMenu" resultType="net.mega.entities.Menu">
+	<select id="getOneMenu" parameterType="java.lang.String" resultType="net.mega.entities.Menu">
 		SELECT *
 		FROM t_menu
 		WHERE menu_seq = #{menu_ident} || menu_name = #{menu_ident} 

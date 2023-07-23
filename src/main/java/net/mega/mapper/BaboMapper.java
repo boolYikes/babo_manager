@@ -11,6 +11,7 @@ import net.mega.entities.MenuQuery;
 import net.mega.entities.Options;
 import net.mega.entities.Orders;
 import net.mega.entities.OrdersBoard;
+import net.mega.entities.Preference;
 
 public interface BaboMapper {
 	// methods
@@ -29,5 +30,7 @@ public interface BaboMapper {
 	public int delCorrespMenu(MenuQuery menu);
 	public int updateMenu(@Param("targetID")long menu_seq, @Param("input")MenuQuery menu);
 	public int insertMenu(MenuQuery menu);
+
+	public ArrayList<Preference> getPrefsByMenu(Menu menus);
 
 }

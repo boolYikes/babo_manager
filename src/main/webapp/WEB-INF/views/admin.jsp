@@ -17,6 +17,7 @@
     <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css" />
     <link rel="stylesheet" href="resources/css/dyrmwyrm.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -117,6 +118,54 @@
 		    				console.log(status);
 		    			}
     				});
+    				// DRAW GRAPH ON PREFERENCES BY AGES
+    	    		$.ajax({
+    	    			url: CPATH + "/getPref",
+    	    			data: {menu_seq:menu_id},
+    	    			success:function(pref){
+    	    				console.log(pref);
+    	    				let chartCanvas = $("#chart_canvas");
+    	    				ages = []
+    	    				counts = []
+    	    				for(i=0; i<pref.length ;i++){
+    	    					ages.push(pref[i].order_age+"대");
+    	    					counts.push(parseInt(pref[i].count));
+    	    				}
+    	    				let data={
+    	    						labels: ages,
+    	    						datasets:[{
+    	    							label:menuInfo.menu_name,
+    	    							data:counts,
+    	    							backgroundColor:"#ffdc00",
+    	    							borderColor:"#1c1c1b",
+    	    							borderWidth:1
+    	    						}]
+    	    				}
+    	    				let options = {
+    	    						scales:{
+    	    							y:{
+    	    								beginAtZero: true
+    	    							}
+    	    						},
+    	    						plugins:{
+    	    							legend:{
+    	    								display:false
+    	    							}
+    	    						}
+    	    				}
+    	    				if(window.chart !== undefined){
+    	    					window.chart.destroy();
+    	    				}
+    	    				window.chart = new Chart(chartCanvas, {
+    	    					type:"bar",
+    	    					data:data,
+    	    					options:options
+    	    				});
+    	    			},
+    	    			error:function(xhr, error){
+    	    				console.log(error);
+    	    			}
+    	    		});
     				
     				$(".menudesc textarea").val(menuInfo.menu_desc);
     				$(".image_and_tags img").attr("src", menuInfo.menu_img);
@@ -125,6 +174,7 @@
     				console.log(error);
     			}
     		});
+    		
     		
     	}
     	
@@ -291,11 +341,7 @@
 	                                            
 	                                        </div>
 	                                    </div>
-	                                    <div class="row">
-	                                        <div class="col-lg-12 arrow-row">
-	                                            <img src="resources/img/arrowdown.png" style="width:25px" alt="arrow">
-	                                        </div>
-	                                    </div>
+	                                    
 	                                </div>
 	                            </div>
 	                        </div>
@@ -447,16 +493,21 @@
                                                     <img src="resources/img/purple.png" style="width:200px;" alt="menuimg">
                                                 </div>
                                                 <div class="col-lg-6 form-group">
+                                                	<div class="row">
+                                                		<div class="col-lg-12 the_chart">
+                                                			<canvas id="chart_canvas">PREPARING</canvas>
+                                                		</div>
+                                                	</div>
+													<!-- 
                                                     <div class="row">
-                                                        <div class="col-lg-12"> <!-- TAGS ARE NOT IMPLEMENTED -->
+                                                        <div class="col-lg-12">
                                                             <input type="checkbox" class="form-check-input">신규
                                                             <br>
                                                             <input type="checkbox" class="form-check-input">추천
                                                             <br>
                                                             <input type="checkbox" class="form-check-input">핫템
                                                         </div>
-                                                    </div>
-													<!-- 
+                                                    </div>  
                                                     <div class="row" style="margin-top:10px">
                                                         <div class="col-lg-12">
                                                             <label for="more_tag">추가태그</label>
