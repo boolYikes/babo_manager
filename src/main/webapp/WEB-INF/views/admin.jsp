@@ -81,6 +81,55 @@
             });
         }
 		
+     // DEFAULT GRAPH
+		$.ajax({
+			url: CPATH + "/getPref",
+			data: {menu_seq:23},
+			success:function(pref){
+				console.log(pref);
+				let chartCanvas = $("#chart_canvas");
+				ages = []
+				counts = []
+				for(i=0; i<pref.length ;i++){
+					ages.push(pref[i].order_age+"대");
+					counts.push(parseInt(pref[i].count));
+				}
+				let data={
+						labels: ages,
+						datasets:[{
+							label:menuInfo.menu_name,
+							data:counts,
+							backgroundColor:"#ffdc00",
+							borderColor:"#1c1c1b",
+							borderWidth:1
+						}]
+				}
+				let options = {
+						scales:{
+							y:{
+								beginAtZero: true
+							}
+						},
+						plugins:{
+							legend:{
+								display:false
+							}
+						}
+				}
+				if(window.chart !== undefined){
+					window.chart.destroy();
+				}
+				window.chart = new Chart(chartCanvas, {
+					type:"bar",
+					data:data,
+					options:options
+				});
+			},
+			error:function(xhr, error){
+				console.log(error);
+			}
+		});
+        
         // 선택한 메뉴 가져오는 펑션
     	let selected_menu;
     	function details(menu_id){
