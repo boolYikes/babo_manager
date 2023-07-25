@@ -39,11 +39,14 @@ public class MegaRestfulController {
 	@RequestMapping("/sortByCat")
 	public ArrayList<Menu> sortByCategories(String categoryName) {
 		categoryName = categoryName.trim();
-		//System.out.println(categoryName);
-		Category cat = mapper.getOneCategory(categoryName);
-		//System.out.println(cat.getCategory_name());
-		ArrayList<Menu> menus = mapper.getCorrespMenus(cat);
-		//System.out.println(menus.get(0).getMenu_name());
+		Category cat = new Category();
+		ArrayList<Menu> menus = new ArrayList<Menu>();
+		if(categoryName.equals("all")) {
+			menus = mapper.getMenus();
+		}else {
+			cat = mapper.getOneCategory(categoryName);
+			menus = mapper.getCorrespMenus(cat);
+		}
 		
 		return menus;
 	}

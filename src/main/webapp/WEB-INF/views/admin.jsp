@@ -192,6 +192,7 @@
      	// 주문내역 불러오는 함수
         function load_this_and_rid_that(tag){
             if($(tag).hasClass("manage-menus")){
+            	$(".bigdaddy02 .card").empty();
                 console.log("menu clicked!!!");
                 //not 임 주의
                 if(!$(".bdgroupA").hasClass("active")){
@@ -199,6 +200,7 @@
                     $(".bdgroupB").toggleClass("active");
                     $(".cat-names").toggleClass("hidden");
                 }
+                window.location.href="${contextPath}/admin";                
             }else if($(tag).hasClass("manage-orders")){
                 console.log("orders clicked!!!");
                 if(!$(".bdgroupB").hasClass("active")){
