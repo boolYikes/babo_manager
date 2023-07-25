@@ -97,7 +97,7 @@
 				let data={
 						labels: ages,
 						datasets:[{
-							label:menuInfo.menu_name,
+							label:pref.menu_name,
 							data:counts,
 							backgroundColor:"#ffdc00",
 							borderColor:"#1c1c1b",
